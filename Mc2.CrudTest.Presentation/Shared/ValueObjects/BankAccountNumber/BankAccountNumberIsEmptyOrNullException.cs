@@ -7,7 +7,7 @@ namespace Mc2.CrudTest.Shared.ValueObjects.BankAccountNumber
     public class BankAccountNumberIsEmptyOrNullException : DomainStateException
     {
         public BankAccountNumberIsEmptyOrNullException(params InputParameter[] inputParameter) : base(ErrorCode.MandatoryField,
-            DomainExceptionMessages.EmptyFirstName,
+            DomainExceptionMessages.EmptyBankAccount,
             inputParameter)
         {
         }

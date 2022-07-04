@@ -38,10 +38,10 @@ namespace Mc2.CrudTest.ApplicationService.Customer.Commands.CreateCustomer
                 return new BaseResult(new Error(ErrorCode.EmptyData,
                     _translator.GetString(_errorMessages.EmptyData), nameof(command)));
 
-            //var newCustomer = new Customer(command.Title,
-            //    command.Description, command.RolesId, command.ProfileIds);
+            var newCustomer = new DomainModel.Customer.Entities.Customer(command.FirstName, command.LastName, command.DateOfBirth
+                , command.PhoneNumber, command.Email, command.BankAccountNumber);
 
-            //await _repository.AddAsync(newCartable);
+            await _repository.AddAsync(newCustomer);
 
             try
             {

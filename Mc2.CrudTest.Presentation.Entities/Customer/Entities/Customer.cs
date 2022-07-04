@@ -17,14 +17,14 @@ namespace Mc2.CrudTest.DomainModel.Customer.Entities
         public Email Email { get; private set; }
         public BankAccountNumber BankAccountNumber { get; private set; }
 
-        public Customer(FirstName firstName, LastName lastName, DateTime dateOfBirth, PhoneNumber phoneNumber, Email email, BankAccountNumber bankAccountNumber)
+        public Customer(string firstName, string lastName, DateTime dateOfBirth, string phoneNumber, string email, string bankAccountNumber)
         {
-            FirstName = firstName;
-            LastName = lastName;
+            FirstName =new FirstName( firstName);
+            LastName =new LastName( lastName);
             DateOfBirth = dateOfBirth;
-            PhoneNumber = phoneNumber;
-            Email = email;
-            BankAccountNumber = bankAccountNumber;
+            PhoneNumber =new PhoneNumber( phoneNumber);
+            Email =new Email( email);
+            BankAccountNumber =new BankAccountNumber( bankAccountNumber);
         }
 
         private Customer()

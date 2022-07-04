@@ -1,6 +1,5 @@
 ﻿using Mc2.CrudTest.ModelFramework.Exceptions;
 using Mc2.CrudTest.ModelFramework.ValueObjects;
-using Mc2.CrudTest.Shared.ValueObjects.FirstName;
 
 namespace Mc2.CrudTest.Shared.ValueObjects.LastName
 {

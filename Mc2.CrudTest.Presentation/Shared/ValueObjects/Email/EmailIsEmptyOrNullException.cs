@@ -7,7 +7,7 @@ namespace Mc2.CrudTest.Shared.ValueObjects.Email
     public class EmailIsEmptyOrNullException : DomainStateException
     {
         public EmailIsEmptyOrNullException(params InputParameter[] inputParameter) : base(ErrorCode.MandatoryField,
-            DomainExceptionMessages.EmptyFirstName,
+            DomainExceptionMessages.EmptyEmail,
             inputParameter)
         {
         }

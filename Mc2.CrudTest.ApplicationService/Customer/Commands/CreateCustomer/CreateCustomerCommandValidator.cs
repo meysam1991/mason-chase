@@ -1,10 +1,7 @@
 ﻿using FluentValidation;
 using Mc2.CrudTest.ModelFramework.Translations;
 using Mc2.CrudTest.Shared.ErrorMessages;
-using Mc2.CrudTest.Shared.ValueObjects.Email;
 using Mc2.CrudTest.Shared.ValueObjects.FirstName;
-using Mc2.CrudTest.Shared.ValueObjects.LastName;
-using Mc2.CrudTest.Shared.ValueObjects.PhoneNumber;
 
 namespace Mc2.CrudTest.ApplicationService.Customer.Commands.CreateCustomer
 {
@@ -17,7 +14,15 @@ namespace Mc2.CrudTest.ApplicationService.Customer.Commands.CreateCustomer
                 .MaximumLength(FirstName.FirstNameLength)
                 .WithMessage(translator.GetString(errorMessages.InvalidMaxLengthOfFirstNameOnCreateCustomer));
 
-            
+            RuleFor(x => x.LastName)
+               .NotEmpty().WithMessage(translator.GetString(errorMessages.LastNameIsEmputyOrNullOnCreateCustomer))
+               .MaximumLength(FirstName.FirstNameLength)
+               .WithMessage(translator.GetString(errorMessages.InvalidMaxLengthOfLastNameOnCreateCustomer));
+
+            RuleFor(x => x.Email)
+            .NotEmpty().WithMessage(translator.GetString(errorMessages.EmailIsEmputyOrNullOnCreateCustomer))
+            .MaximumLength(FirstName.FirstNameLength)
+            .WithMessage(translator.GetString(errorMessages.InvalidMaxLengthOfEmailOnCreateCustomer));
         }
     }
 }

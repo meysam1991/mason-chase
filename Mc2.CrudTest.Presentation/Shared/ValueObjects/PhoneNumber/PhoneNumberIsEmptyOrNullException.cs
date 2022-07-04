@@ -7,7 +7,7 @@ namespace Mc2.CrudTest.Shared.ValueObjects.PhoneNumber
     public class PhoneNumberIsEmptyOrNullException : DomainStateException
     {
         public PhoneNumberIsEmptyOrNullException(params InputParameter[] inputParameter) : base(ErrorCode.MandatoryField,
-            DomainExceptionMessages.EmptyFirstName,
+            DomainExceptionMessages.EmptyPhoneNumber,
             inputParameter)
         {
         }

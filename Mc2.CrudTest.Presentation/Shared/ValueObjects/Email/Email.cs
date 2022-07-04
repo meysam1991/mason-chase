@@ -35,7 +35,7 @@ namespace Mc2.CrudTest.Shared.ValueObjects.Email
                 { AttemptedValue = Value, PropertyName = nameof(Value) });
 
             if (Value.Length > 100)
-                throw new InvalidTitleLenghtValueException(100, new InputParameter()
+                throw new InvalidEmailLenghtValueException(100, new InputParameter()
                 { AttemptedValue = Value, PropertyName = nameof(Value) });
         }
     }

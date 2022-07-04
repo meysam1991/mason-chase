@@ -7,7 +7,7 @@ namespace Mc2.CrudTest.Shared.ValueObjects.LastName
     public class LastNameIsEmptyOrNullException : DomainStateException
     {
         public LastNameIsEmptyOrNullException(params InputParameter[] inputParameter) : base(ErrorCode.MandatoryField,
-            DomainExceptionMessages.EmptyFirstName,
+            DomainExceptionMessages.EmptyLastName,
             inputParameter)
         {
         }
