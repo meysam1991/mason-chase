@@ -1,11 +1,12 @@
 ﻿using Mc2.CrudTest.ModelFramework.DTOs.BaseResult;
 using Mc2.CrudTest.ModelFramework.Exceptions;
 using Mc2.CrudTest.Shared.ErrorMessages;
-namespace Mc2.CrudTest.Shared.ValueObjects.FirstName
+
+namespace Mc2.CrudTest.Shared.ValueObjects.PhoneNumber
 {
-    public class ValueIsEmptyOrNullException : DomainStateException
+    public class PhoneNumberIsEmptyOrNullException : DomainStateException
     {
-        public ValueIsEmptyOrNullException(params InputParameter[] inputParameter) : base(ErrorCode.MandatoryField,
+        public PhoneNumberIsEmptyOrNullException(params InputParameter[] inputParameter) : base(ErrorCode.MandatoryField,
             DomainExceptionMessages.EmptyFirstName,
             inputParameter)
         {

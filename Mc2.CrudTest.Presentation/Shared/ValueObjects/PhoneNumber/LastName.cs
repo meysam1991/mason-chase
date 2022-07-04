@@ -1,21 +1,21 @@
-﻿
-using Mc2.CrudTest.ModelFramework.Exceptions;
+﻿using Mc2.CrudTest.ModelFramework.Exceptions;
 using Mc2.CrudTest.ModelFramework.ValueObjects;
+using Mc2.CrudTest.Shared.ValueObjects.FirstName;
 
-namespace Mc2.CrudTest.Shared.ValueObjects.FirstName
+namespace Mc2.CrudTest.Shared.ValueObjects.LastName
 {
-    public class FirstName : BaseValueObject<FirstName>
+    public class LastName : BaseValueObject<LastName>
     {
         public const short FirstNameLength = 100;
         public string Value { get; private set; }
 
-        public FirstName(string value)
+        public LastName(string value)
         {
             Value = value;
             Validate();
         }
 
-        public override bool ObjectIsEqual(FirstName otherObject)
+        public override bool ObjectIsEqual(LastName otherObject)
         {
             if (Value == otherObject.Value)
                 return true;
@@ -31,11 +31,11 @@ namespace Mc2.CrudTest.Shared.ValueObjects.FirstName
         private void Validate()
         {
             if (string.IsNullOrEmpty(Value))
-                throw new FirstNameIsEmptyOrNullException(new InputParameter()
+                throw new LastNameIsEmptyOrNullException(new InputParameter()
                 { AttemptedValue = Value, PropertyName = nameof(Value) });
 
             if (Value.Length > 100)
-                throw new InvalidTitleLenghtValueException(100, new InputParameter()
+                throw new InvalidLastNameLenghtValueException(100, new InputParameter()
                 { AttemptedValue = Value, PropertyName = nameof(Value) });
         }
     }

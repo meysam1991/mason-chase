@@ -1,21 +1,22 @@
-﻿
-using Mc2.CrudTest.ModelFramework.Exceptions;
+﻿using Mc2.CrudTest.ModelFramework.Exceptions;
 using Mc2.CrudTest.ModelFramework.ValueObjects;
+using Mc2.CrudTest.Shared.ValueObjects.FirstName;
+using Mc2.CrudTest.Shared.ValueObjects.LastName;
 
-namespace Mc2.CrudTest.Shared.ValueObjects.FirstName
+namespace Mc2.CrudTest.Shared.ValueObjects.BankAccountNumber
 {
-    public class FirstName : BaseValueObject<FirstName>
+    public class BankAccountNumber : BaseValueObject<BankAccountNumber>
     {
         public const short FirstNameLength = 100;
         public string Value { get; private set; }
 
-        public FirstName(string value)
+        public BankAccountNumber(string value)
         {
             Value = value;
             Validate();
         }
 
-        public override bool ObjectIsEqual(FirstName otherObject)
+        public override bool ObjectIsEqual(BankAccountNumber otherObject)
         {
             if (Value == otherObject.Value)
                 return true;
@@ -31,11 +32,11 @@ namespace Mc2.CrudTest.Shared.ValueObjects.FirstName
         private void Validate()
         {
             if (string.IsNullOrEmpty(Value))
-                throw new FirstNameIsEmptyOrNullException(new InputParameter()
+                throw new BankAccountNumberIsEmptyOrNullException(new InputParameter()
                 { AttemptedValue = Value, PropertyName = nameof(Value) });
 
             if (Value.Length > 100)
-                throw new InvalidTitleLenghtValueException(100, new InputParameter()
+                throw new InvalidBankAccountNumberLenghtValueException(100, new InputParameter()
                 { AttemptedValue = Value, PropertyName = nameof(Value) });
         }
     }
