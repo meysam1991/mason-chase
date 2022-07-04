@@ -1,16 +1,15 @@
-﻿using Mc2.CrudTest.DomainModel.Customer.Entities;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace Mc2.CrudTest.Infrastructure.DataBase.Common
 {
-    public class Mc2CrudTestDbContext : DbContext
+    public class Mc2CrudTestDbContext : EfBaseMc2CrudTest
     {
         public Mc2CrudTestDbContext(DbContextOptions options) : base(options)
         {
         }
 
 
-        public DbSet<Customer> Customers { get; set; }
+        public DbSet<DomainModel.Customer.Entities.Customer> Customers { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.AddAuditableShadowProperties();

@@ -2,10 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <UserSecretsId>d473a8d2-6274-48c0-86a5-4485abb1011c</UserSecretsId>
   </PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="Dapper" Version="2.0.78" />
-		<PackageReference Include="Microsoft.Data.SqlClient" Version="2.1.1" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.2" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.2">
 			<PrivateAssets>all</PrivateAssets>
@@ -16,10 +15,15 @@
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
+		<PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="5.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="5.0.0" />
 	</ItemGroup>
   <ItemGroup>
-    <Folder Include="Data\" />
+    <Compile Remove="Data\**" />
+    <EmbeddedResource Remove="Data\**" />
+    <None Remove="Data\**" />
   </ItemGroup>
+	 
   <ItemGroup>
     <ProjectReference Include="..\Mc2.CrudTest.Presentation.Entities\Mc2.CrudTest.DomainModel.csproj" />
   </ItemGroup>
