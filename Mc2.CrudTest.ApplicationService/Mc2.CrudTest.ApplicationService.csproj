@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="FluentValidation" Version="9.4.0" />
+	 
+	</ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Mc2.CrudTest.ModelFramework\Mc2.CrudTest.ModelFramework.csproj" />
+    <ProjectReference Include="..\Mc2.CrudTest.Presentation.Entities\Mc2.CrudTest.DomainModel.csproj" />
+    <ProjectReference Include="..\Mc2.CrudTest.Presentation\Shared\Mc2.CrudTest.Shared.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Customer\Queries\" />
+  </ItemGroup>
+
+</Project>
