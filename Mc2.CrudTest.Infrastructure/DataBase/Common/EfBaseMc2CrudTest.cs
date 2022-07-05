@@ -4,16 +4,15 @@ using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Mc2.CrudTest.Infrastructure.DataBase.Events;
-using Mc2.CrudTest.Infrastructure.DataBase.Events.OutBoxEventItemConfigurations;
 using Mc2.CrudTest.ModelFramework.Entities;
 using Mc2.CrudTest.ModelFramework.Events;
+using Mc2.CrudTest.ModelFramework.Events.OutBoxEventItemConfigurations;
+using Mc2.CrudTest.Shared.Extensions;
 using Mc2.CrudTest.Shared.Serializations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage;
-using SirvanTspSwitch.Framework.Database.SqlDatabase.EntityFramework.Extensions;
 using DbContext = Microsoft.EntityFrameworkCore.DbContext;
 
 namespace Mc2.CrudTest.Infrastructure.DataBase.Common

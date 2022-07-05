@@ -1,8 +1,8 @@
 ﻿using Mc2.CrudTest.Shared.StringUtils;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Linq;
- 
-namespace SirvanTspSwitch.Framework.Database.SqlDatabase.EntityFramework.Extensions
+
+namespace Mc2.CrudTest.Shared.Extensions
 {
     public static class DbContextExtensions
     {

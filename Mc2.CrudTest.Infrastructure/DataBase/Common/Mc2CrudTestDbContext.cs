@@ -15,7 +15,7 @@ namespace Mc2.CrudTest.Infrastructure.DataBase.Common
             modelBuilder.AddAuditableShadowProperties();
             modelBuilder.AddDeleteAbleShadowProperties();
             modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
-
+         
             base.OnModelCreating(modelBuilder);
         }
     }

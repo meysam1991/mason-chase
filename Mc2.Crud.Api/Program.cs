@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.IO;
 
-namespace Mc2.CrudTest.Presentation.Server
+namespace Mc2.Crud.Api
 {
+
     public class Program
     {
         public static void Main(string[] args)
@@ -17,7 +18,7 @@ namespace Mc2.CrudTest.Presentation.Server
         {
             var config = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                
+
                 .Build();
 
             return Host.CreateDefaultBuilder(args)
@@ -25,14 +26,15 @@ namespace Mc2.CrudTest.Presentation.Server
                 {
                     webBuilder.ConfigureLogging(x =>
                     {
-                        
+
                     });
                     webBuilder.UseConfiguration(config);
                     webBuilder.UseStartup<Startup>();
                     webBuilder.UseContentRoot(Directory.GetCurrentDirectory());
                     var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-                     
+
                 });
         }
     }
+
 }

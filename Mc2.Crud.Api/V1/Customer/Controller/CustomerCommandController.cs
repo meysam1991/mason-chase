@@ -6,19 +6,15 @@ using Mc2.CrudTest.Shared.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
-namespace Mc2.CrudTest.Presentation.Server.V1.Customer.Controller
+namespace Mc2.Crud.Api.V1.Customer.Controller
 {
-    [ApiVersion("1.0")]
-    [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
-    [ControllerDescription("عملیات مربوط به آدرس")]
-
+    [ControllerDescription("Customer")]
     public class CustomerCommandController : ControllerBase
     {
         private ICommandDispatcher CommandDispatcher => HttpContext.CommandDispastcher();
 
         [HttpPost("CreateCustomer")]
-        [MapToApiVersion("1.0")]
         [ActionDescription("CreateCustomer")]
         public async Task<BaseResult> CreateCustomer(CreateCustomerCommand command)
         {
@@ -26,6 +22,6 @@ namespace Mc2.CrudTest.Presentation.Server.V1.Customer.Controller
                 .SendAsync<CreateCustomerCommand>(command);
         }
 
-        
+
     }
 }

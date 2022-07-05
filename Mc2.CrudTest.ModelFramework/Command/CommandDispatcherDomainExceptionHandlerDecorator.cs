@@ -3,21 +3,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using Mc2.CrudTest.ModelFramework.DTOs.BaseResult;
 using Mc2.CrudTest.ModelFramework.Exceptions;
-using Mc2.CrudTest.ModelFramework.Translations;
 using Microsoft.Extensions.Logging;
 
 namespace Mc2.CrudTest.ModelFramework.Command
 {
     public class CommandDispatcherDomainExceptionHandlerDecorator : CommandDispatcherDecorator
     {
-        private readonly ITranslator _translator;
         private readonly ILogger _logger;
 
         public CommandDispatcherDomainExceptionHandlerDecorator(
-            CommandDispatcher commandDispatcher, ITranslator translator, ILogger<CommandDispatcherDomainExceptionHandlerDecorator> logger)
+            CommandDispatcher commandDispatcher, ILogger<CommandDispatcherDomainExceptionHandlerDecorator> logger)
             : base(commandDispatcher)
         {
-            _translator = translator;
             _logger = logger;
         }
 
@@ -73,7 +70,7 @@ namespace Mc2.CrudTest.ModelFramework.Command
                 commandResult = Activator.CreateInstance(makeMe);
             }
 
-            var message = _translator.GetString(exception.Message);
+            var message = exception.Message;
 
             if (exception.InputParameters.Any())
                 commandResult?.AddOperationError(exception.InputParameters.Select(x =>
@@ -95,7 +92,7 @@ namespace Mc2.CrudTest.ModelFramework.Command
                 commandResult = Activator.CreateInstance(makeMe);
             }
 
-            var message = _translator.GetString(exception.Message);
+            var message = exception.Message;
 
             if (exception.InputParameters.Any())
                 commandResult?.AddOperationError(exception.InputParameters.Select(x =>

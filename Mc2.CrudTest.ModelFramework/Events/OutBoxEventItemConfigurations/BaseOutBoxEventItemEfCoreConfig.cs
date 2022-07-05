@@ -1,8 +1,7 @@
-﻿using Mc2.CrudTest.Infrastructure.DataBase.Events;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Mc2.CrudTest.Infrastructure.DataBase.Events.OutBoxEventItemConfigurations
+namespace Mc2.CrudTest.ModelFramework.Events.OutBoxEventItemConfigurations
 {
     public class BaseOutBoxEventItemEfCoreConfig : IEntityTypeConfiguration<OutBoxEventItem>
     {

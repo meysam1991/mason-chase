@@ -2,7 +2,6 @@
 using Mc2.CrudTest.ModelFramework.Command;
 using Mc2.CrudTest.ModelFramework.Data;
 using Mc2.CrudTest.ModelFramework.DTOs.BaseResult;
-using Mc2.CrudTest.ModelFramework.Translations;
 using Mc2.CrudTest.Shared.ErrorMessages;
 using Microsoft.Extensions.Logging;
 using System;
@@ -16,10 +15,9 @@ namespace Mc2.CrudTest.ApplicationService.Customer.Commands.CreateCustomer
         private readonly ICustomerCommandRepository _repository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly DomainErrorMessages _errorMessages;
-        private readonly ITranslator _translator;
 
-        public CreateCustomerCommandHandler(ITranslator translator
-            , DomainErrorMessages errorMessages
+        public CreateCustomerCommandHandler(
+             DomainErrorMessages errorMessages
             , ILogger<CreateCustomerCommandHandler> logger
             , ICustomerCommandRepository repository
             , IUnitOfWork unitOfWork
@@ -28,7 +26,6 @@ namespace Mc2.CrudTest.ApplicationService.Customer.Commands.CreateCustomer
             _logger = logger;
             _repository = repository;
             _unitOfWork = unitOfWork;
-            _translator = translator;
             _errorMessages = errorMessages;
         }
 
@@ -36,7 +33,7 @@ namespace Mc2.CrudTest.ApplicationService.Customer.Commands.CreateCustomer
         {
             if (command == null)
                 return new BaseResult(new Error(ErrorCode.EmptyData,
-                    _translator.GetString(_errorMessages.EmptyData), nameof(command)));
+                    "Ivalid input", nameof(command)));
 
             var newCustomer = new DomainModel.Customer.Entities.Customer(command.FirstName, command.LastName, command.DateOfBirth
                 , command.PhoneNumber, command.Email, command.BankAccountNumber);
@@ -48,13 +45,13 @@ namespace Mc2.CrudTest.ApplicationService.Customer.Commands.CreateCustomer
                 var commit = await _unitOfWork.CommitAsync();
                 if (commit < 1)
                     return new BaseResult(new Error(ErrorCode.DatabaseCommitNotAffected,
-                        _translator.GetString(_errorMessages.DatabaseCommitNotAffected)));
+                        "DatabaseCommitNotAffected"));
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, ex.Message);
                 return new BaseResult(new Error(ErrorCode.DatabaseCommitException,
-                    _translator.GetString(_errorMessages.DatabaseCommitNotAffected)));
+                   "DatabaseCommitNotAffected"));
             }
 
             return new BaseResult();

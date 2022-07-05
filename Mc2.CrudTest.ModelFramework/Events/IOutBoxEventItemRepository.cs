@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Mc2.CrudTest.Infrastructure.DataBase.Events
+namespace Mc2.CrudTest.ModelFramework.Events
 {
     public interface IOutBoxEventItemRepository
     {

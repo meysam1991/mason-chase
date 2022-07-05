@@ -1,8 +1,6 @@
 ﻿using Mc2.CrudTest.ModelFramework.Exceptions;
 using Mc2.CrudTest.ModelFramework.ValueObjects;
-using Mc2.CrudTest.Shared.ValueObjects.FirstName;
-using Mc2.CrudTest.Shared.ValueObjects.LastName;
-
+ 
 namespace Mc2.CrudTest.Shared.ValueObjects.BankAccountNumber
 {
     public class BankAccountNumber : BaseValueObject<BankAccountNumber>

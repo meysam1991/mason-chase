@@ -1,28 +1,37 @@
 ﻿using FluentValidation;
-using Mc2.CrudTest.ModelFramework.Translations;
 using Mc2.CrudTest.Shared.ErrorMessages;
-using Mc2.CrudTest.Shared.ValueObjects.FirstName;
 
 namespace Mc2.CrudTest.ApplicationService.Customer.Commands.CreateCustomer
 {
     public class CreateCustomerCommandValidator : AbstractValidator<CreateCustomerCommand>
     {
-        public CreateCustomerCommandValidator(ITranslator translator, DomainErrorMessages errorMessages)
+        [System.Obsolete]
+        public CreateCustomerCommandValidator()
         {
             RuleFor(x => x.FirstName)
-                .NotEmpty().WithMessage(translator.GetString(errorMessages.FirstNameIsEmputyOrNullOnCreateCustomer))
-                .MaximumLength(FirstName.FirstNameLength)
-                .WithMessage(translator.GetString(errorMessages.InvalidMaxLengthOfFirstNameOnCreateCustomer));
+                .NotEmpty().WithMessage("FirstName is emputy or null")
+                .MaximumLength(100)
+                .WithMessage("Invalix max length of FirstName");
 
             RuleFor(x => x.LastName)
-               .NotEmpty().WithMessage(translator.GetString(errorMessages.LastNameIsEmputyOrNullOnCreateCustomer))
-               .MaximumLength(FirstName.FirstNameLength)
-               .WithMessage(translator.GetString(errorMessages.InvalidMaxLengthOfLastNameOnCreateCustomer));
+               .NotEmpty().WithMessage("LastName is emputy or null")
+               .MaximumLength(100)
+               .WithMessage("Invalix max length of LastName");
 
-            RuleFor(x => x.Email)
-            .NotEmpty().WithMessage(translator.GetString(errorMessages.EmailIsEmputyOrNullOnCreateCustomer))
-            .MaximumLength(FirstName.FirstNameLength)
-            .WithMessage(translator.GetString(errorMessages.InvalidMaxLengthOfEmailOnCreateCustomer));
+              RuleFor(x => x.Email)
+            .NotEmpty().WithMessage("Email is emputy or null")
+            .MaximumLength(100)
+            .WithMessage("Invalix max length of Email")
+            .EmailAddress(FluentValidation.Validators.EmailValidationMode.Net4xRegex).WithMessage("Invalid email");
+
+            RuleFor(customer => customer.PhoneNumber).Matches("^09\\d{2}\\d{3}\\d{4}$").WithMessage("Invalid phone number");
+
+            RuleFor(x => x.BankAccountNumber)
+                .NotEmpty().WithMessage("BankAccountNumber is emputy or null")
+                .MaximumLength(25)
+                .WithMessage("Invalix max length of BankAccountNumber");
+
+
         }
     }
 }

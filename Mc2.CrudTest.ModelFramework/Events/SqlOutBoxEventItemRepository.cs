@@ -1,16 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Data.SqlClient;
-using Mc2.CrudTest.Shared.Configuration;
+ 
+using Mc2.CrudTest.ModelFramework.Configuration;
 using Dapper;
 
-namespace Mc2.CrudTest.Infrastructure.DataBase.Events
+namespace Mc2.CrudTest.ModelFramework.Events
 {
     public class SqlOutBoxEventItemRepository : IOutBoxEventItemRepository
     {
-        private readonly Mc2Mc2CrudTestFrameworkConfiguration _configurations;
+        private readonly Mc2CrudTestFrameworkConfiguration _configurations;
 
-        public SqlOutBoxEventItemRepository(Mc2Mc2CrudTestFrameworkConfiguration configurations)
+        public SqlOutBoxEventItemRepository(Mc2CrudTestFrameworkConfiguration configurations)
         {
             _configurations = configurations;
         }

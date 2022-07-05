@@ -1,20 +1,26 @@
 using Mc2.CrudTest.Infrastructure.DataBase.Common;
 using Mc2.CrudTest.ModelFramework.Configuration;
 using Mc2.CrudTest.ModelFramework.StartupExtensions;
-using Mc2.CrudTest.ModelFramework.Translations;
 using Mc2.CrudTest.Shared.ErrorMessages;
+using Mc2.CrudTest.Shared.Serializations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace Mc2.CrudTest.Presentation.Server
+namespace Mc2.Crud.Api
 {
     public class Startup
     {
@@ -24,6 +30,8 @@ namespace Mc2.CrudTest.Presentation.Server
         }
 
         public IConfiguration Configuration { get; }
+
+        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContextPool<Mc2CrudTestDbContext>(options =>
@@ -42,23 +50,14 @@ namespace Mc2.CrudTest.Presentation.Server
                     conf =>
                         conf.UseHierarchyId());
             });
-            
-            services.AddSwaggerGen();
-            services.AddApiVersioning(options =>
-            {
-                options.ReportApiVersions = true;
-                options.AssumeDefaultVersionWhenUnspecified = true;
-                options.DefaultApiVersion = new ApiVersion(1, 0);
-            });
 
-            services.AddVersionedApiExplorer(options =>
+            services.AddControllers();
+            services.AddSwaggerGen(c =>
             {
-                options.GroupNameFormat = "'v'V";
-                options.SubstituteApiVersionInUrl = true;
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Mc2.Crud.Api", Version = "v1" });
             });
-            services.AddTransient<ITranslator, Translator>();
             services.AddScoped<DomainErrorMessages>();
-
+            services.AddTransient<IJsonSerializer, NewtonSoftSerializer>();
             services.AddSirvanTspFrameworkServices(Configuration);
             services.AddCors(x =>
             {
@@ -69,7 +68,6 @@ namespace Mc2.CrudTest.Presentation.Server
                     b.AllowAnyMethod();
                 });
             });
-           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -78,25 +76,18 @@ namespace Mc2.CrudTest.Presentation.Server
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseWebAssemblyDebugging();
-               
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Mc2.Crud.Api v1"));
             }
-            else
-            {
-                app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }
-            app.UseSwagger();
-            app.UseSwaggerUI(c =>
-            {
-                c.RoutePrefix = "swagger/ui";
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebAPI(v1)");
-            });
-            app.UseCors("Any");
-          
+
+            app.UseHttpsRedirection();
+
             app.UseRouting();
-           
+
+            app.UseCors("Any");
+
+            app.UseRouting();
+
             var locale = configuration.SiteLocale;
             var localizationOptions = new RequestLocalizationOptions
             {
@@ -107,14 +98,10 @@ namespace Mc2.CrudTest.Presentation.Server
 
             app.UseRequestLocalization(localizationOptions);
 
-            
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                
             });
-
         }
     }
 }
