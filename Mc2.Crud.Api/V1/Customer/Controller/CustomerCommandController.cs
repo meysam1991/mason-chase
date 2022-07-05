@@ -1,4 +1,5 @@
 ﻿using Mc2.CrudTest.ApplicationService.Customer.Commands.CreateCustomer;
+using Mc2.CrudTest.ApplicationService.Customer.Commands.DeleteCustomer;
 using Mc2.CrudTest.ModelFramework.Command;
 using Mc2.CrudTest.ModelFramework.DTOs.BaseResult;
 using Mc2.CrudTest.Shared.CustomAnnotation;

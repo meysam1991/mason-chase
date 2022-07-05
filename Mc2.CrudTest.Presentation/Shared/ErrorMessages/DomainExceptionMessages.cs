@@ -9,6 +9,8 @@
         public static string EmptyBankAccount => nameof(EmptyBankAccount);
         public static string EmptyEmail => nameof(EmptyEmail);
         public static string EmptyPhoneNumber => nameof(EmptyPhoneNumber);
+        public static string EmailAddressNotEntered => nameof(EmailAddressNotEntered);
+        public static string InvalidEmail => nameof(InvalidEmail);
         
     }
 }
