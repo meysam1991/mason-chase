@@ -1,7 +1,7 @@
-﻿using Mc2.CrudTest.Shared.Configuration.PoolingPublisher;
-using Mc2.CrudTest.Shared.Configuration.Swagger;
+﻿using Mc2.CrudTest.Infrastructure.Configuration.Swagger;
+using Mc2.CrudTest.Shared.Configuration.PoolingPublisher;
 
-namespace Mc2.CrudTest.Shared.Configuration
+namespace Mc2.CrudTest.Infrastructure.Configuration
 {
     public class Mc2Mc2CrudTestFrameworkConfiguration
     {

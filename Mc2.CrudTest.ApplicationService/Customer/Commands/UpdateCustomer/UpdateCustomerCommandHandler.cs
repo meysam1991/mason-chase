@@ -2,7 +2,6 @@
 using Mc2.CrudTest.ModelFramework.Command;
 using Mc2.CrudTest.ModelFramework.Data;
 using Mc2.CrudTest.ModelFramework.DTOs.BaseResult;
-using Mc2.CrudTest.Shared.ErrorMessages;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
@@ -14,11 +13,9 @@ namespace Mc2.CrudTest.ApplicationService.Customer.Commands.UpdateCustomer
         private readonly ILogger _logger;
         private readonly ICustomerCommandRepository _repository;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly DomainErrorMessages _errorMessages;
 
         public UpdateCustomerCommandHandler(
-             DomainErrorMessages errorMessages
-            , ILogger<UpdateCustomerCommandHandler> logger
+              ILogger<UpdateCustomerCommandHandler> logger
             , ICustomerCommandRepository repository
             , IUnitOfWork unitOfWork
         )
@@ -26,7 +23,6 @@ namespace Mc2.CrudTest.ApplicationService.Customer.Commands.UpdateCustomer
             _logger = logger;
             _repository = repository;
             _unitOfWork = unitOfWork;
-            _errorMessages = errorMessages;
         }
 
         public async Task<BaseResult> Handle(UpdateCustomerCommand command)

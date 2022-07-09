@@ -1,5 +1,4 @@
-﻿
-namespace Mc2.CrudTest.Shared.Configuration.Swagger
+﻿namespace Mc2.CrudTest.Infrastructure.Configuration.Swagger
 {
     public class SwaggerConfiguration
     {

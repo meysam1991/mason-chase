@@ -8,7 +8,7 @@ using Mc2.CrudTest.ModelFramework.Entities;
 using Microsoft.EntityFrameworkCore;
 
 
-namespace Mc2.CrudTest.Infrastructure
+namespace Mc2.CrudTest.Infrastructure.BaseRepository
 {
     public class BaseEfCommandRepository<TEntity, TKey, TDbContext> : ICommandRepository<TEntity, TKey>
         where TEntity : BaseAggregateRoot<TKey> where TKey : IEquatable<TKey> where TDbContext : EfBaseMc2CrudTest

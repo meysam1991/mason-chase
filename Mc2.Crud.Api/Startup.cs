@@ -1,7 +1,6 @@
 using Mc2.CrudTest.Infrastructure.DataBase.Common;
 using Mc2.CrudTest.ModelFramework.Configuration;
 using Mc2.CrudTest.ModelFramework.StartupExtensions;
-using Mc2.CrudTest.Shared.ErrorMessages;
 using Mc2.CrudTest.Shared.Serializations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -56,7 +55,6 @@ namespace Mc2.Crud.Api
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Mc2.Crud.Api", Version = "v1" });
             });
-            services.AddScoped<DomainErrorMessages>();
             services.AddTransient<IJsonSerializer, NewtonSoftSerializer>();
             services.AddSirvanTspFrameworkServices(Configuration);
             services.AddCors(x =>

@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using Mc2.CrudTest.Shared.ErrorMessages;
 
 namespace Mc2.CrudTest.ApplicationService.Customer.Commands.UpdateCustomer
 {

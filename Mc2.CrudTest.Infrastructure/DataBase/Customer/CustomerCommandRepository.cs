@@ -1,4 +1,5 @@
 ﻿using Mc2.CrudTest.DomainModel.Customer.Data;
+using Mc2.CrudTest.Infrastructure.BaseRepository;
 using Mc2.CrudTest.Infrastructure.DataBase.Common;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;

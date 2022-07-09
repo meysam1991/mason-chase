@@ -9,6 +9,9 @@ namespace Mc2.CrudTest.ModelFramework.DTOs.BaseResult
         {
 
         }
+        public Result(Error error) : base(error)
+        {
+        }
         public Result(TData data)
         {
             Success = true;
@@ -24,9 +27,7 @@ namespace Mc2.CrudTest.ModelFramework.DTOs.BaseResult
         {
         }
 
-        public Result(Error error) : base(error)
-        {
-        }
+        
 
         public Result(IEnumerable<Error> errors) : base(errors)
         {

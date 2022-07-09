@@ -8,7 +8,7 @@ using Mc2.CrudTest.Shared.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
-namespace Mc2.Crud.Api.V1.Customer.Controller
+namespace Mc2.Crud.Api.V1.Customer.Controller.Customer
 {
     [ApiController]
     [ControllerDescription("Customer")]
@@ -21,7 +21,7 @@ namespace Mc2.Crud.Api.V1.Customer.Controller
         public async Task<BaseResult> CreateCustomer(CreateCustomerCommand command)
         {
             return await CommandDispatcher
-                .SendAsync<CreateCustomerCommand>(command);
+                .SendAsync(command);
         }
 
         [HttpPost("UpdateCustomer")]
@@ -29,7 +29,7 @@ namespace Mc2.Crud.Api.V1.Customer.Controller
         public async Task<BaseResult> UpdateCustomer(UpdateCustomerCommand command)
         {
             return await CommandDispatcher
-                .SendAsync<UpdateCustomerCommand>(command);
+                .SendAsync(command);
         }
 
         [HttpPost("DeleteCustomer")]
@@ -37,7 +37,7 @@ namespace Mc2.Crud.Api.V1.Customer.Controller
         public async Task<BaseResult> UpdateCustomer(DeleteCustomerCommand command)
         {
             return await CommandDispatcher
-                .SendAsync<DeleteCustomerCommand>(command);
+                .SendAsync(command);
         }
     }
 }
