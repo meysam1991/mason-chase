@@ -1,5 +1,6 @@
 ﻿using Mc2.CrudTest.ApplicationService.Customer.Commands.CreateCustomer;
 using Mc2.CrudTest.ApplicationService.Customer.Commands.DeleteCustomer;
+using Mc2.CrudTest.ApplicationService.Customer.Commands.UpdateCustomer;
 using Mc2.CrudTest.ModelFramework.Command;
 using Mc2.CrudTest.ModelFramework.DTOs.BaseResult;
 using Mc2.CrudTest.Shared.CustomAnnotation;
@@ -23,6 +24,20 @@ namespace Mc2.Crud.Api.V1.Customer.Controller
                 .SendAsync<CreateCustomerCommand>(command);
         }
 
+        [HttpPost("UpdateCustomer")]
+        [ActionDescription("UpdateCustomer")]
+        public async Task<BaseResult> UpdateCustomer(UpdateCustomerCommand command)
+        {
+            return await CommandDispatcher
+                .SendAsync<UpdateCustomerCommand>(command);
+        }
 
+        [HttpPost("DeleteCustomer")]
+        [ActionDescription("DeleteCustomer")]
+        public async Task<BaseResult> UpdateCustomer(DeleteCustomerCommand command)
+        {
+            return await CommandDispatcher
+                .SendAsync<DeleteCustomerCommand>(command);
+        }
     }
 }

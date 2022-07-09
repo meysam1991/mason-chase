@@ -11,6 +11,7 @@
         public static string EmptyPhoneNumber => nameof(EmptyPhoneNumber);
         public static string EmailAddressNotEntered => nameof(EmailAddressNotEntered);
         public static string InvalidEmail => nameof(InvalidEmail);
+        public static string InvalidDateOfBirthDate => nameof(InvalidDateOfBirthDate);
         
     }
 }

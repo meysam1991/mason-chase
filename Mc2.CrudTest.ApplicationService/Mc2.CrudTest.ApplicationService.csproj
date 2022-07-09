@@ -13,7 +13,7 @@
     <ProjectReference Include="..\Mc2.CrudTest.Presentation\Shared\Mc2.CrudTest.Shared.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Customer\Queries\" />
+    <Folder Include="Customer\Queries\FindCustomer\" />
   </ItemGroup>
 
 </Project>

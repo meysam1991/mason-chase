@@ -10,6 +10,7 @@ using Mc2.CrudTest.Shared.ValidatorExtensions;
 using Mc2.CrudTest.Shared.StringUtils;
 using Mc2.CrudTest.ModelFramework.Exceptions;
 using Mc2.CrudTest.DomainModel.Customer.Exception;
+using System.Globalization;
 
 namespace Mc2.CrudTest.DomainModel.Customer.Entities
 {
@@ -35,16 +36,44 @@ namespace Mc2.CrudTest.DomainModel.Customer.Entities
                new NewCustomerAdded(firstName,lastName,dateOfBirth,phoneNumber,email,bankAccountNumber));
         }
 
+        public void Update(string firstName, string lastName, DateTime dateOfBirth, string email, string bankAccountNumber, string phoneNumber)
+        {
+            LastName = new LastName(lastName);
+            DateOfBirth = dateOfBirth;
+            PhoneNumber = new PhoneNumber(phoneNumber);
+            Email = new Email(email);
+            BankAccountNumber = new BankAccountNumber(bankAccountNumber);
+            ValidateInvariants();
+            AddEvent(
+               new CustomerUpdated(Id,firstName,lastName,dateOfBirth,phoneNumber,email,bankAccountNumber));
+        }
+
         private Customer()
         {
         }
+        static private bool IsValidDateFormat(string dateFormat)
+        {
+            try
+            {
+                DateTime pastDate = DateTime.Now.Date.Subtract(new TimeSpan(10, 0, 0, 0, 0));
+                string pastDateString = pastDate.ToString(dateFormat, CultureInfo.InvariantCulture);
+                DateTime parsedDate = DateTime.ParseExact(pastDateString, dateFormat, CultureInfo.InvariantCulture);
+                if (parsedDate.Date.CompareTo(pastDate.Date) == 0)
+                {
+                    return true;
+                }
+                return false;
+            }
+            catch
+            {
+                return false;
+            }
+        }
         protected override void ValidateInvariants()
         {
-            
-
-            if (DateOfBirth==null)
-                throw new InvalidEmailException(new InputParameter
-                { PropertyName = nameof(Email), AttemptedValue = Email.Value });
+            if (!IsValidDateFormat (DateOfBirth.ToString()))
+                throw new InvalidDateOfBirthException(new InputParameter
+                { PropertyName = nameof(DateOfBirth), AttemptedValue = DateOfBirth.ToString() });
         }
     }
 }

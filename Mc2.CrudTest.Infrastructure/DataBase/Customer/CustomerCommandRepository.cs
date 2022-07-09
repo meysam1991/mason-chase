@@ -1,8 +1,6 @@
 ﻿using Mc2.CrudTest.DomainModel.Customer.Data;
 using Mc2.CrudTest.Infrastructure.DataBase.Common;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Mc2.CrudTest.Infrastructure.DataBase.Customer
@@ -15,6 +13,9 @@ namespace Mc2.CrudTest.Infrastructure.DataBase.Customer
         {
         }
 
-         
+        public async Task<DomainModel.Customer.Entities.Customer> FindCustomerById(int customerId)
+        {
+           return await Context.Customers.FirstOrDefaultAsync(x => x.Id == customerId);
+        }
     }
 }

@@ -7,18 +7,18 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
 
-namespace Mc2.CrudTest.ApplicationService.Customer.Commands.DeleteCustomer
+namespace Mc2.CrudTest.ApplicationService.Customer.Commands.UpdateCustomer
 {
-    public class DeleteCustomerCommandHandler : ICommandHandler<DeleteCustomerCommand>
+    public class UpdateCustomerCommandHandler : ICommandHandler<UpdateCustomerCommand>
     {
         private readonly ILogger _logger;
         private readonly ICustomerCommandRepository _repository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly DomainErrorMessages _errorMessages;
 
-        public DeleteCustomerCommandHandler(
+        public UpdateCustomerCommandHandler(
              DomainErrorMessages errorMessages
-            , ILogger<DeleteCustomerCommandHandler> logger
+            , ILogger<UpdateCustomerCommandHandler> logger
             , ICustomerCommandRepository repository
             , IUnitOfWork unitOfWork
         )
@@ -29,18 +29,19 @@ namespace Mc2.CrudTest.ApplicationService.Customer.Commands.DeleteCustomer
             _errorMessages = errorMessages;
         }
 
-        public async Task<BaseResult> Handle(DeleteCustomerCommand command)
+        public async Task<BaseResult> Handle(UpdateCustomerCommand command)
         {
             if (command == null)
                 return new BaseResult(new Error(ErrorCode.EmptyData,
                     "Ivalid input", nameof(command)));
 
-            var existCustomer = await _repository.FindCustomerById(command.CustomerId);
-            if(existCustomer == null)
-                return new BaseResult(new Error(ErrorCode.NotFound,
-                   "Customer not found", nameof(command)));
+            var exitCustomner =await _repository.FindAsync(command.CustomerId);
+            if(exitCustomner == null)
 
-            _repository.Delete(existCustomer);
+                return new BaseResult(new Error(ErrorCode.NotFound,
+                         "Customer Not Found", nameof(command)));
+
+            exitCustomner.Update(command.FirstName, command.LastName, command.DateOfBirth, command.Email, command.BankAccountNumber,command.PhoneNumber);
 
             try
             {
