@@ -12,10 +12,6 @@ namespace Mc2.CrudTest.ModelFramework.ValueObjects
             return ObjectIsEqual(otherObject);
         }
 
-        public override int GetHashCode()
-        {
-            return ObjectGetHashCode();
-        }
 
         public abstract bool ObjectIsEqual(TValueObject otherObject);
 

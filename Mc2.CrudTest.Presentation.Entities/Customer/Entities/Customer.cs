@@ -6,15 +6,13 @@ using Mc2.CrudTest.Shared.ValueObjects.FirstName;
 using Mc2.CrudTest.Shared.ValueObjects.LastName;
 using Mc2.CrudTest.Shared.ValueObjects.PhoneNumber;
 using System;
-using Mc2.CrudTest.Shared.ValidatorExtensions;
-using Mc2.CrudTest.Shared.StringUtils;
 using Mc2.CrudTest.ModelFramework.Exceptions;
 using Mc2.CrudTest.DomainModel.Customer.Exception;
 using System.Globalization;
 
 namespace Mc2.CrudTest.DomainModel.Customer.Entities
 {
-    public class Customer : BaseAggregateRoot<int>
+    public class Customer : BaseAggregateRoot<int>, ISoftDeleteEntity
     {
         public FirstName FirstName { get; private set; }
         public LastName LastName { get; private set; }

@@ -16,7 +16,10 @@ namespace Mc2.CrudTest.Infrastructure.DataBase.Customer
 
         public async Task<DomainModel.Customer.Entities.Customer> FindCustomerById(int customerId)
         {
-           return await Context.Customers.FirstOrDefaultAsync(x => x.Id == customerId);
+            var item= await Context.Customers.FirstOrDefaultAsync(x => x.Id == customerId);
+            if (item == null)
+                return null;
+            return item;
         }
     }
 }
