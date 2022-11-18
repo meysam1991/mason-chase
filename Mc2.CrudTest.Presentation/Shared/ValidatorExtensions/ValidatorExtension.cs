@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Mc2.CrudTest.Shared.ValueObjects.PhoneNumber;
+using PhoneNumbers;
+using System;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 
 namespace Mc2.CrudTest.Shared.ValidatorExtensions
@@ -53,6 +56,29 @@ namespace Mc2.CrudTest.Shared.ValidatorExtensions
             {
                 return false;
             }
+        }
+
+        public static bool IsValidMobileNumberLib(this string mobile,string countryCode)
+        {
+            PhoneNumberUtil phoneUtil = PhoneNumberUtil.GetInstance();
+
+            PhoneNumbers.PhoneNumber phoneNumber = phoneUtil.Parse(mobile, countryCode);
+
+            bool isMobile = false;
+            bool isValidNumber = phoneUtil.IsValidNumber(phoneNumber);
+            var numberType = phoneUtil.GetNumberType(phoneNumber);
+            string phoneNumberType = numberType.ToString();
+
+            if (!string.IsNullOrEmpty(phoneNumberType) && phoneNumberType == "MOBILE")
+                isMobile = true;
+            return isValidNumber && isMobile;
+        }
+        public static string OrginalMobileFormat(this string mobile,string countryCode)
+        {
+            PhoneNumberUtil phoneUtil = PhoneNumberUtil.GetInstance();
+            PhoneNumbers.PhoneNumber phoneNumber = phoneUtil.Parse(mobile, countryCode);
+
+            return phoneUtil.Format(phoneNumber, PhoneNumberFormat.E164);
         }
 
         public static bool IsValidEmail(this string email)

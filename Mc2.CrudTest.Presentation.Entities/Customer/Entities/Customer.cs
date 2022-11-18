@@ -8,7 +8,7 @@ using Mc2.CrudTest.Shared.ValueObjects.PhoneNumber;
 using System;
 using Mc2.CrudTest.ModelFramework.Exceptions;
 using Mc2.CrudTest.DomainModel.Customer.Exception;
-using System.Globalization;
+ 
 
 namespace Mc2.CrudTest.DomainModel.Customer.Entities
 {
@@ -49,27 +49,20 @@ namespace Mc2.CrudTest.DomainModel.Customer.Entities
         private Customer()
         {
         }
-        static private bool IsValidDateFormat(string dateFormat)
+
+        private bool ValidateTime(string dateInString)
         {
-            try
+            DateTime temp;
+            if (DateTime.TryParse(dateInString, out temp))
             {
-                DateTime pastDate = DateTime.Now.Date.Subtract(new TimeSpan(10, 0, 0, 0, 0));
-                string pastDateString = pastDate.ToString(dateFormat, CultureInfo.InvariantCulture);
-                DateTime parsedDate = DateTime.ParseExact(pastDateString, dateFormat, CultureInfo.InvariantCulture);
-                if (parsedDate.Date.CompareTo(pastDate.Date) == 0)
-                {
-                    return true;
-                }
-                return false;
+                return true;
             }
-            catch
-            {
-                return false;
-            }
+            return false;
         }
+
         protected override void ValidateInvariants()
         {
-            if (!IsValidDateFormat (DateOfBirth.ToString()))
+            if (!ValidateTime(DateOfBirth.ToString()))
                 throw new InvalidDateOfBirthException(new InputParameter
                 { PropertyName = nameof(DateOfBirth), AttemptedValue = DateOfBirth.ToString() });
         }

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Mc2.CrudTest.Infrastructure.Migrations
 {
     [DbContext(typeof(Mc2CrudTestDbContext))]
-    [Migration("20220711052622_AddSoftDelete")]
-    partial class AddSoftDelete
+    [Migration("20221118083637_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -46,10 +46,6 @@ namespace Mc2.CrudTest.Infrastructure.Migrations
 
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -129,6 +125,29 @@ namespace Mc2.CrudTest.Infrastructure.Migrations
                     b.HasKey("OutBoxEventItemId");
 
                     b.ToTable("OutBoxEventItems");
+                });
+
+            modelBuilder.Entity("Mc2.CrudTest.DomainModel.Customer.Entities.Customer", b =>
+                {
+                    b.OwnsOne("Mc2.CrudTest.Shared.ValueObjects.Email.Email", "Email", b1 =>
+                        {
+                            b1.Property<int>("CustomerId")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("int")
+                                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                            b1.Property<string>("Value")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.HasKey("CustomerId");
+
+                            b1.ToTable("Customers");
+
+                            b1.WithOwner()
+                                .HasForeignKey("CustomerId");
+                        });
+
+                    b.Navigation("Email");
                 });
 #pragma warning restore 612, 618
         }

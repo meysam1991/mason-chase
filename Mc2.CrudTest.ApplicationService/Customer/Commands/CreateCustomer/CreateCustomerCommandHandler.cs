@@ -31,7 +31,10 @@ namespace Mc2.CrudTest.ApplicationService.Customer.Commands.CreateCustomer
             if (command == null)
                 return new BaseResult(new Error(ErrorCode.EmptyData,
                     "Ivalid input", nameof(command)));
-
+            var isExistEmail = await _repository.IsFieldValueUnique(x=>x.Email.Value==command.Email);
+            if(!isExistEmail)
+                return new BaseResult(new Error(ErrorCode.DuplicateData,
+                        "Email is not uniq"));
             var newCustomer = new DomainModel.Customer.Entities.Customer(command.FirstName, command.LastName, command.DateOfBirth
                 , command.PhoneNumber, command.Email, command.BankAccountNumber);
 

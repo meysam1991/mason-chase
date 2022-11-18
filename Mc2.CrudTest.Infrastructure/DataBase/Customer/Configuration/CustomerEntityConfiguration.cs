@@ -11,7 +11,7 @@ namespace Mc2.CrudTest.Infrastructure.DataBase.Customer.Configuration
     public class
         CustomerEntityConfiguration : IEntityTypeConfiguration<DomainModel.Customer.Entities.Customer>
     {
-
+        //todo 
         public void Configure(EntityTypeBuilder<DomainModel.Customer.Entities.Customer> builder)
         {
             builder.HasKey(x => x.Id);
@@ -21,7 +21,7 @@ namespace Mc2.CrudTest.Infrastructure.DataBase.Customer.Configuration
             builder.Property(c => c.LastName).HasConversion(c => c.Value, c => new LastName(c)).HasMaxLength(150).IsRequired();
             builder.Property(c => c.PhoneNumber).HasConversion(c => c.Value, c => new PhoneNumber(c)).HasMaxLength(50);
             builder.Property(c => c.BankAccountNumber).HasConversion(c => c.Value, c => new BankAccountNumber(c)).HasMaxLength(16);
-            builder.Property(c => c.Email).HasConversion(c => c.Value, c => new Email(c)).HasMaxLength(250);
+            builder.OwnsOne(x => x.Email);
             builder.HasIndex(x =>
             new {
                 FirstName = x.FirstName,
