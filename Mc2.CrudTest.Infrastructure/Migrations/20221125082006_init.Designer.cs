@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Mc2.CrudTest.Infrastructure.Migrations
 {
     [DbContext(typeof(Mc2CrudTestDbContext))]
-    [Migration("20221118083637_init")]
+    [Migration("20221125082006_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

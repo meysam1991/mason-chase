@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Mc2.CrudTest.ApplicationService\Mc2.CrudTest.ApplicationService.csproj" />
+    <ProjectReference Include="..\Mc2.CrudTest.Presentation.Entities\Mc2.CrudTest.DomainModel.csproj" />
+  </ItemGroup>
+
+</Project>

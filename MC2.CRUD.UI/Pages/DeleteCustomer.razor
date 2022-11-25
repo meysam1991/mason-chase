@@ -1,0 +1,52 @@
+﻿@page "/user/delete/{userId:int}"
+@using Mc2.CrudTest.ApplicationService.Customer.Commands.CreateCustomer
+@using Mc2.CrudTest.DomainModel.Customer.Dtos
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+<h2>Delete User</h2>
+<br />
+<div class="form-group">
+    <h4>Do you want to delete this user?</h4>
+    <table class="table">
+        <tbody>
+            <tr>
+                <td>Name</td>
+                <td>@user.FirstName</td>
+            </tr>
+            <tr>
+                <td>Address</td>
+                <td>@user.LastName</td>
+            </tr>
+            <tr>
+                <td>Cell No</td>
+                <td>@user.Email</td>
+            </tr>
+            <tr>
+                <td>E-mail</td>
+                <td>@user.DateOfBirth</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="form-group">
+    <input type="submit" value="Delete" @onclick="(async () => await RemoveUser(user.CustomerId))" class="btn btn-danger" />
+    <input type="submit" value="Cancel" @onclick="(() => Cancel())" class="btn btn-warning" />
+</div>
+@code {
+    [Parameter]
+    public int userId { get; set; }
+    CustomerListItemDto user = new CustomerListItemDto();
+    protected override async Task OnInitializedAsync()
+    {
+        //user = await Http.GetFromJsonAsync<CustomerListItemDto>("/api/User/" + Convert.ToInt32(userId));
+    }
+    protected async Task RemoveUser(int userID)
+    {
+        await Http.DeleteAsync("api/User/" + userID);
+        NavigationManager.NavigateTo("/fetchuserdetails");
+    }
+    void Cancel()
+    {
+        NavigationManager.NavigateTo("/fetchuserdetails");
+    }
+}

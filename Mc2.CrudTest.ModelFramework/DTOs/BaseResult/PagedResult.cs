@@ -41,7 +41,10 @@ namespace Mc2.CrudTest.ModelFramework.DTOs.BaseResult
             FilteredRecordCount = 0;
             CurrentPageRecordCount = 0;
         }
+        public PagedResult( )
+        {
 
+        }
         public int PageNumber { get; protected set; }
         public long TotalRecordCount { get; set; }
         public long FilteredRecordCount { get; set; }

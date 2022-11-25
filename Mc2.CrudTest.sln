@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mc2.CrudTest.ApplicationSer
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mc2.Crud.Api", "Mc2.Crud.Api\Mc2.Crud.Api.csproj", "{E153D6B6-6098-4A2E-819D-C31FF3674FC0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MC2.CRUD.UI", "MC2.CRUD.UI\MC2.CRUD.UI.csproj", "{8DD0A62F-416D-4844-B10C-2EED2B0B830D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{E153D6B6-6098-4A2E-819D-C31FF3674FC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E153D6B6-6098-4A2E-819D-C31FF3674FC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E153D6B6-6098-4A2E-819D-C31FF3674FC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DD0A62F-416D-4844-B10C-2EED2B0B830D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DD0A62F-416D-4844-B10C-2EED2B0B830D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DD0A62F-416D-4844-B10C-2EED2B0B830D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DD0A62F-416D-4844-B10C-2EED2B0B830D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

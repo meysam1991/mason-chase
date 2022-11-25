@@ -1,0 +1,89 @@
+﻿@page "/fetchuserdetails"
+@using Mc2.CrudTest.DomainModel.Customer.Dtos
+@using System.Net.Http.Json
+@using Mc2.CrudTest.ModelFramework.DTOs.BaseResult
+@using Newtonsoft.Json
+@using Newtonsoft.Json.Linq
+@inject HttpClient Http
+<h1>User Data</h1>
+<p>Blazor CRUD operation</p>
+<div class="row">
+    <div class="col-md-6">
+        <a href='/user/add' class="btn btn-primary" role="button">
+            <i class="fas fa-user-plus"></i>
+            Add User
+        </a>
+    </div>
+ </div>
+<br />
+@if (userList == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table table-striped align-middle table-bordered">
+        <thead class="table-success">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Department</th>
+                <th>Cell No</th>
+                <th>E-mail</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in userList)
+            {
+                <tr>
+                    <td>@user.CustomerId</td>
+                    <td>@user.FirstName</td>
+                    <td>@user.LastName</td>
+                    <td>@user.Email</td>
+                    <td>@user.BankAccountNumber</td>
+                    <td>
+                        <a href='/user/edit/@user.CustomerId' class="btn btn-outline-dark" role="button">
+                            Edit
+                        </a>
+                        <a href='/user/delete/@user.CustomerId' class="btn btn-outline-danger" role="button">
+                            Delete
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+}
+@code {
+    protected List<CustomerItemDto> userList = new();
+    protected List<CustomerItemDto> searchUserData = new();
+    protected CustomerItemDto user = new();
+  
+    protected override async Task OnInitializedAsync()
+    {
+        await GetUser();
+    }
+    protected async Task GetUser()
+    {
+        try
+        {
+            var result = await Http.GetFromJsonAsync<object>("https://localhost:5001/GetAllCustomers");
+             searchUserData = userList;
+        }
+
+   
+        catch (Exception ex) 
+        {
+            
+            throw;
+        }     
+      
+    }
+    protected void DeleteConfirm(int userID)
+    {
+        user = userList.FirstOrDefault(x => x.CustomerId == userID);
+    }
+   
+}
