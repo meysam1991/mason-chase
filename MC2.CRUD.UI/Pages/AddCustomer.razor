@@ -2,39 +2,49 @@
 @page "/user/edit/{userId:int}"
 @using Mc2.CrudTest.ApplicationService.Customer.Commands.CreateCustomer
 @using Mc2.CrudTest.DomainModel.Customer.Dtos
+@using Mc2.CrudTest.ModelFramework.DTOs.BaseResult
+@using Newtonsoft.Json
  @inject HttpClient Http
 @inject NavigationManager NavigationManager
 <h1>@Title User</h1>
 <hr />
-<EditForm Model="@user" OnValidSubmit="SaveUser">
+<EditForm Model="@customer" OnValidSubmit="SaveUser">
     <DataAnnotationsValidator />
     <div class="mb-3">
-        <label for="Name" class="form-label">Name</label>
+        <label for="Name" class="form-label">First Name</label>
         <div class="col-md-4">
-            <InputText class="form-control" @bind-Value="user.FirstName" />
+            <InputText class="form-control" @bind-Value="customer.FirstName" />
         </div>
-        <ValidationMessage For="@(() => user.FirstName)" />
+        <ValidationMessage For="@(() => customer.FirstName)" />
     </div>
     <div class="mb-3">
-        <label for="Address" class="form-label">Address</label>
+        <label for="Address" class="form-label">Last Name</label>
         <div class="col-md-4">
-            <InputText class="form-control" @bind-Value="user.LastName" />
+            <InputText class="form-control" @bind-Value="customer.LastName" />
         </div>
-        <ValidationMessage For="@(() => user.LastName)" />
+        <ValidationMessage For="@(() => customer.LastName)" />
     </div>
     <div class="mb-3">
         <label for="Cellnumber" class="form-label">Cell No</label>
         <div class="col-md-4">
-            <InputText class="form-control" @bind-Value="user.Email" />
+            <InputText class="form-control" @bind-Value="customer.PhoneNumber" />
         </div>
-        <ValidationMessage For="@(() => user.Email)" />
+        <ValidationMessage For="@(() => customer.PhoneNumber)" />
     </div>
     <div class="mb-3">
         <label for="Emailid" class="form-label">E-mail</label>
         <div class="col-md-4">
-            <InputText class="form-control" @bind-Value="user.Email" />
+            <InputText class="form-control" @bind-Value="customer.Email" />
         </div>
-        <ValidationMessage For="@(() => user.Email)" />
+        <ValidationMessage For="@(() => customer.Email)" />
+    </div>
+     
+    <div class="mb-3">
+        <label for="Emailid" class="form-label">BanckAcccount</label>
+        <div class="col-md-4">
+            <InputText   class="form-control" @bind-Value="customer.BankAccountNumber" />
+        </div>
+        <ValidationMessage For="@(() => customer.BankAccountNumber)" />
     </div>
     <div class="form-group">
         <button type="submit" class="btn btn-primary">Save</button>
@@ -43,9 +53,9 @@
 </EditForm>
 @code {
     [Parameter]
-    public int userId { get; set; }
+    public int customerId { get; set; }
     protected string Title = "Add";
-    protected CreateCustomerCommand user = new();
+    protected CreateCustomerCommand customer = new();
     protected override async Task OnParametersSetAsync()
     {
         
@@ -53,12 +63,13 @@
     protected async Task SaveUser()
     {
        
-            await Http.PostAsJsonAsync("api/User", user);
+           await Http.PostAsJsonAsync("https://localhost:5001/CreateCustomer", customer);
         
+              
         Cancel();
     }
     public void Cancel()
     {
-        NavigationManager.NavigateTo("/fetchuserdetails");
+        NavigationManager.NavigateTo("/fetchcustomedetails");
     }
 }

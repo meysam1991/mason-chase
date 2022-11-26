@@ -1,22 +1,21 @@
-﻿@page "/fetchuserdetails"
+﻿@page "/fetchcustomedetails"
 @using Mc2.CrudTest.DomainModel.Customer.Dtos
 @using System.Net.Http.Json
 @using Mc2.CrudTest.ModelFramework.DTOs.BaseResult
 @using Newtonsoft.Json
 @using Newtonsoft.Json.Linq
 @inject HttpClient Http
-<h1>User Data</h1>
-<p>Blazor CRUD operation</p>
-<div class="row">
+<h1>Customer Data</h1>
+ <div class="row">
     <div class="col-md-6">
         <a href='/user/add' class="btn btn-primary" role="button">
             <i class="fas fa-user-plus"></i>
-            Add User
+            Add Customer
         </a>
     </div>
  </div>
 <br />
-@if (userList == null)
+@if (customerList == null)
 {
     <p><em>Loading...</em></p>
 }
@@ -25,28 +24,31 @@ else
     <table class="table table-striped align-middle table-bordered">
         <thead class="table-success">
             <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Address</th>
-                <th>Department</th>
-                <th>Cell No</th>
-                <th>E-mail</th>
+                <th>Id</th>
+                <th>ّFirstName</th>
+                <th>LastName</th>
+                <th>Mobile</th>
+                <th>Email</th>
+                <th>BirthDay</th>
+                <th>BankAccount</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var user in userList)
+            @foreach (var customer in customerList)
             {
                 <tr>
-                    <td>@user.CustomerId</td>
-                    <td>@user.FirstName</td>
-                    <td>@user.LastName</td>
-                    <td>@user.Email</td>
-                    <td>@user.BankAccountNumber</td>
+                    <td>@customer.CustomerId</td>
+                    <td>@customer.FirstName</td>
+                    <td>@customer.LastName</td>
+                    <td>@customer.PhoneNumber</td>
+                    <td>@customer.Email</td>
+                    <td>@customer.DateOfBirth</td>
+                    <td>@customer.BankAccountNumber</td>
                     <td>
-                        <a href='/user/edit/@user.CustomerId' class="btn btn-outline-dark" role="button">
+                        <a href='/user/edit/@customer.CustomerId' class="btn btn-outline-dark" role="button">
                             Edit
                         </a>
-                        <a href='/user/delete/@user.CustomerId' class="btn btn-outline-danger" role="button">
+                        <a href='/user/delete/@customer.CustomerId' class="btn btn-outline-danger" role="button">
                             Delete
                         </a>
                     </td>
@@ -57,10 +59,10 @@ else
     </table>
 }
 @code {
-    protected List<CustomerItemDto> userList = new();
-    protected List<CustomerItemDto> searchUserData = new();
-    protected CustomerItemDto user = new();
+    protected List<CustomerItemDto> customerList = new();
   
+    protected CustomerItemDto customer = new();
+
     protected override async Task OnInitializedAsync()
     {
         await GetUser();
@@ -70,7 +72,10 @@ else
         try
         {
             var result = await Http.GetFromJsonAsync<object>("https://localhost:5001/GetAllCustomers");
-             searchUserData = userList;
+             dynamic data = JsonConvert.DeserializeObject<dynamic>(result.ToString());
+            var ss =JsonConvert.SerializeObject( data.result);
+              customerList = JsonConvert.DeserializeObject<List<CustomerItemDto>>(ss);
+              
         }
 
    
@@ -83,7 +88,7 @@ else
     }
     protected void DeleteConfirm(int userID)
     {
-        user = userList.FirstOrDefault(x => x.CustomerId == userID);
+        customer = customerList.FirstOrDefault(x => x.CustomerId == userID);
     }
    
 }

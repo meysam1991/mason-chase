@@ -10,7 +10,7 @@ namespace Mc2.CrudTest.Shared.ValueObjects.Email
 
         public Email(string value)
         {
-            Value = value;
+            Value = value.Normalize();
             Validate();
         }
 
