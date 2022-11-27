@@ -25,7 +25,7 @@ namespace Mc2.CrudTest.ApplicationService.Customer.Commands.CreateCustomer
             .NotEmpty().WithMessage("Email is emputy or null")
             .MaximumLength(100)
             .WithMessage("Invalix max length of Email")
-            .EmailAddress(FluentValidation.Validators.EmailValidationMode.Net4xRegex).WithMessage("Invalid email");
+            .EmailAddress(EmailValidationMode.Net4xRegex).WithMessage("Invalid email");
 
             RuleFor(x => x.PhoneNumber.IsValidMobileNumberLib("IR"))
                 .NotEqual(false)

@@ -74,14 +74,14 @@ namespace Mc2.CrudTest.AcceptanceTests.Customer
 
         private void Setup()
         {
-            CreateCustomerCommandSetup("Meysam", "Mozaffari", "Meysam@me.com", "09182906145", "1234567891236548", DateTime.Now);
+            CreateCustomerCommandSetup("Meysam", "Mozaffari", "Meysam@me.com", "09182906145", "1234567891236548", DateTime.Now.ToString());
             CreateCommandHandler();
         }
         private void CreateCommandHandler()
         {
             _commandHandler = new CreateCustomerCommandHandler(_logger.Object, _repository.Object, _unitOfWork.Object);
         }
-        private void CreateCustomerCommandSetup(string firstName, string lastName, string email, string phoneNumber, string bankAccount, DateTime dateOfBirth)
+        private void CreateCustomerCommandSetup(string firstName, string lastName, string email, string phoneNumber, string bankAccount, string dateOfBirth)
         {
             _command = new CreateCustomerCommand()
 

@@ -8,7 +8,7 @@
 <h1>Customer Data</h1>
  <div class="row">
     <div class="col-md-6">
-        <a href='/user/add' class="btn btn-primary" role="button">
+        <a href='/customer/add' class="btn btn-primary" role="button">
             <i class="fas fa-user-plus"></i>
             Add Customer
         </a>
@@ -45,10 +45,10 @@ else
                     <td>@customer.DateOfBirth</td>
                     <td>@customer.BankAccountNumber</td>
                     <td>
-                        <a href='/user/edit/@customer.CustomerId' class="btn btn-outline-dark" role="button">
+                        <a href='/customer/edit/@customer.CustomerId' class="btn btn-outline-dark" role="button">
                             Edit
                         </a>
-                        <a href='/user/delete/@customer.CustomerId' class="btn btn-outline-danger" role="button">
+                        <a href='/customer/delete/@customer.CustomerId' class="btn btn-outline-danger" role="button">
                             Delete
                         </a>
                     </td>
@@ -65,9 +65,9 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        await GetUser();
+        await GetCustomer();
     }
-    protected async Task GetUser()
+    protected async Task GetCustomer()
     {
         try
         {
@@ -86,9 +86,9 @@ else
         }     
       
     }
-    protected void DeleteConfirm(int userID)
+    protected void DeleteConfirm(int customerId)
     {
-        customer = customerList.FirstOrDefault(x => x.CustomerId == userID);
+        customer = customerList.FirstOrDefault(x => x.CustomerId == customerId);
     }
    
 }

@@ -4,6 +4,32 @@ using FluentValidation.Results;
 
 namespace Mc2.CrudTest.ModelFramework.DTOs.BaseResult
 {
+    public class ResultObject
+    {
+        public bool Success { get; set; }
+        public Validationerror[] ValidationErrors { get; set; }
+        public object OperationErrors { get; set; }
+        public object SuccessMessage { get; set; }
+    }
+
+    public class Validationerror
+    {
+        public string PropertyName { get; set; }
+        public string ErrorMessage { get; set; }
+        public string AttemptedValue { get; set; }
+        public object CustomState { get; set; }
+        public int Severity { get; set; }
+        public string ErrorCode { get; set; }
+        public object[] FormattedMessageArguments { get; set; }
+        public Formattedmessageplaceholdervalues FormattedMessagePlaceholderValues { get; set; }
+    }
+
+    public class Formattedmessageplaceholdervalues
+    {
+        public string PropertyName { get; set; }
+        public string PropertyValue { get; set; }
+    }
+
     public class BaseResult
     {
         public BaseResult()

@@ -35,7 +35,7 @@ namespace Mc2.CrudTest.ApplicationService.Customer.Commands.CreateCustomer
             if(!isExistEmail)
                 return new BaseResult(new Error(ErrorCode.DuplicateData,
                         "Email is not uniq"));
-            var newCustomer = new DomainModel.Customer.Entities.Customer(command.FirstName, command.LastName, command.DateOfBirth
+            var newCustomer = new DomainModel.Customer.Entities.Customer(command.FirstName, command.LastName, Convert.ToDateTime( command.DateOfBirth)
                 , command.PhoneNumber, command.Email, command.BankAccountNumber);
 
             await _repository.AddAsync(newCustomer);

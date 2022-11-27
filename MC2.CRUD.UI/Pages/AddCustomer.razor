@@ -1,13 +1,30 @@
-﻿@page "/user/add"
-@page "/user/edit/{userId:int}"
+﻿@page "/customer/add"
+@page "/customer/edit/{customerId:int}"
 @using Mc2.CrudTest.ApplicationService.Customer.Commands.CreateCustomer
 @using Mc2.CrudTest.DomainModel.Customer.Dtos
 @using Mc2.CrudTest.ModelFramework.DTOs.BaseResult
 @using Newtonsoft.Json
- @inject HttpClient Http
+@using System.Net
+@inject HttpClient Http
 @inject NavigationManager NavigationManager
-<h1>@Title User</h1>
+<h1>@Title Customer</h1>
 <hr />
+@{
+    if (result != null && !result.Success && result.ValidationErrors != null)
+    {
+        foreach (var item in result.ValidationErrors)
+        {
+            <span>@item.ErrorMessage</span>
+        }
+    }
+    if (result != null && !result.Success && result.OperationErrors != null)
+    {
+       
+            <span>result.OperationErrors.FieldName</span>
+      
+    }
+}
+
 <EditForm Model="@customer" OnValidSubmit="SaveUser">
     <DataAnnotationsValidator />
     <div class="mb-3">
@@ -25,6 +42,13 @@
         <ValidationMessage For="@(() => customer.LastName)" />
     </div>
     <div class="mb-3">
+        <label for="Cellnumber" class="form-label">BirtDay</label>
+        <div class="col-md-4">
+            <InputText type="date"   class="form-control" @bind-Value="customer.DateOfBirth" />
+        </div>
+        <ValidationMessage For="@(() => customer.PhoneNumber)" />
+    </div>
+    <div class="mb-3">
         <label for="Cellnumber" class="form-label">Cell No</label>
         <div class="col-md-4">
             <InputText class="form-control" @bind-Value="customer.PhoneNumber" />
@@ -38,11 +62,11 @@
         </div>
         <ValidationMessage For="@(() => customer.Email)" />
     </div>
-     
+
     <div class="mb-3">
         <label for="Emailid" class="form-label">BanckAcccount</label>
         <div class="col-md-4">
-            <InputText   class="form-control" @bind-Value="customer.BankAccountNumber" />
+            <InputText class="form-control" @bind-Value="customer.BankAccountNumber" />
         </div>
         <ValidationMessage For="@(() => customer.BankAccountNumber)" />
     </div>
@@ -56,17 +80,29 @@
     public int customerId { get; set; }
     protected string Title = "Add";
     protected CreateCustomerCommand customer = new();
+    protected ResultObject result = new();
     protected override async Task OnParametersSetAsync()
     {
-        
+
     }
     protected async Task SaveUser()
     {
-       
-           await Http.PostAsJsonAsync("https://localhost:5001/CreateCustomer", customer);
-        
-              
-        Cancel();
+
+        var response = await Http.PostAsJsonAsync<object>("https://localhost:5001/CreateCustomer", customer);
+        if (response.IsSuccessStatusCode)
+        {
+            string jsonResult = await response.Content.ReadAsStringAsync();
+            result = JsonConvert.DeserializeObject<ResultObject>(jsonResult);
+
+        }
+        if (result.ValidationErrors == null)
+
+        {
+            Cancel();
+
+        }
+
+
     }
     public void Cancel()
     {

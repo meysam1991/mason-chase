@@ -34,7 +34,7 @@ namespace Mc2.Crud.Api.V1.Customer.Controller.Customer
 
         [HttpPost("DeleteCustomer")]
         [ActionDescription("DeleteCustomer")]
-        public async Task<BaseResult> UpdateCustomer(DeleteCustomerCommand command)
+        public async Task<BaseResult> DeleteCustomer(DeleteCustomerCommand command)
         {
             return await CommandDispatcher
                 .SendAsync(command);

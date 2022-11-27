@@ -1,52 +1,84 @@
-﻿@page "/user/delete/{userId:int}"
+﻿@page "/customer/delete/{customerId:int}"
 @using Mc2.CrudTest.ApplicationService.Customer.Commands.CreateCustomer
+@using Mc2.CrudTest.ApplicationService.Customer.Commands.DeleteCustomer
 @using Mc2.CrudTest.DomainModel.Customer.Dtos
+@using Mc2.CrudTest.ModelFramework.DTOs.BaseResult
+@using Newtonsoft.Json
 @inject HttpClient Http
 @inject NavigationManager NavigationManager
-<h2>Delete User</h2>
+<h2>Delete Customer</h2>
 <br />
+@{
+    if (result != null && !result.Success && result.ValidationErrors != null)
+    {
+        foreach (var item in result.ValidationErrors)
+        {
+            <span>@item.ErrorMessage</span>
+        }
+    }
+}
 <div class="form-group">
-    <h4>Do you want to delete this user?</h4>
+    <h4>Do you want to delete this Customer?</h4>
     <table class="table">
         <tbody>
             <tr>
-                <td>Name</td>
-                <td>@user.FirstName</td>
+                <td>First Name</td>
+                <td>@customer.FirstName</td>
             </tr>
             <tr>
-                <td>Address</td>
-                <td>@user.LastName</td>
+                <td>LAst Name</td>
+                <td>@customer.LastName</td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td>@customer.Email</td>
             </tr>
             <tr>
                 <td>Cell No</td>
-                <td>@user.Email</td>
+                <td>@customer.PhoneNumber</td>
             </tr>
             <tr>
-                <td>E-mail</td>
-                <td>@user.DateOfBirth</td>
+                <td>BankAccount</td>
+                <td>@customer.BankAccountNumber</td>
+            </tr>
+            <tr>
+                <td>BirthDay</td>
+                <td>@customer.DateOfBirth</td>
             </tr>
         </tbody>
     </table>
 </div>
 <div class="form-group">
-    <input type="submit" value="Delete" @onclick="(async () => await RemoveUser(user.CustomerId))" class="btn btn-danger" />
+    <input type="submit" value="Delete" @onclick="(async () => await RemoveUser(customer.CustomerId))" class="btn btn-danger" />
     <input type="submit" value="Cancel" @onclick="(() => Cancel())" class="btn btn-warning" />
 </div>
 @code {
     [Parameter]
-    public int userId { get; set; }
-    CustomerListItemDto user = new CustomerListItemDto();
+    public int customerId { get; set; }
+    CustomerItemDto customer = new CustomerItemDto();
+    ResultObject result = new ResultObject();
     protected override async Task OnInitializedAsync()
     {
-        //user = await Http.GetFromJsonAsync<CustomerListItemDto>("/api/User/" + Convert.ToInt32(userId));
+        var result = await Http.GetFromJsonAsync<object>("https://localhost:5001/FindCustomer?customerId=" + customerId);
+        dynamic data = JsonConvert.DeserializeObject<dynamic>(result.ToString());
+        var ss = JsonConvert.SerializeObject(data.data);
+        customer = JsonConvert.DeserializeObject<CustomerItemDto>(ss);
     }
-    protected async Task RemoveUser(int userID)
+    protected async Task RemoveUser(int customerId)
     {
-        await Http.DeleteAsync("api/User/" + userID);
-        NavigationManager.NavigateTo("/fetchuserdetails");
+        var model = new DeleteCustomerCommand { CustomerId = customerId };
+        var response = await Http.PostAsJsonAsync<object>("https://localhost:5001/DeleteCustomer", model);
+        if (response.IsSuccessStatusCode)
+        {
+            string jsonResult = await response.Content.ReadAsStringAsync();
+            result = JsonConvert.DeserializeObject<ResultObject>(jsonResult);
+
+            NavigationManager.NavigateTo("/fetchcustomedetails");
+        }
+
     }
     void Cancel()
     {
-        NavigationManager.NavigateTo("/fetchuserdetails");
+        NavigationManager.NavigateTo("/fetchcustomedetails");
     }
 }
