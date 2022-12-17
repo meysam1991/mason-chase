@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "Mc2.CrudTest.AcceptanceTests": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:14292;http://localhost:14295"
+    }
+  }
+}
