@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
+    <PackageReference Include="RestSharp" Version="105.2.3" />
     <PackageReference Include="SpecFlow.Plus.LivingDocPlugin" Version="3.9.57" />
     <PackageReference Include="SpecFlow.NUnit" Version="3.9.40" />
     <PackageReference Include="nunit" Version="3.13.2" />
@@ -18,6 +19,10 @@
   <ItemGroup>
     <Folder Include="Drivers\" />
     <Folder Include="Support\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Mc2.CrudTest.Presentation.Entities\Mc2.CrudTest.DomainModel.csproj" />
   </ItemGroup>
 
 </Project>

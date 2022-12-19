@@ -74,27 +74,31 @@ namespace Mc2.CrudTest.BDDTests.Features
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Given a customer repository with the following customers:")]
-        [NUnit.Framework.CategoryAttribute("tag1")]
-        [NUnit.Framework.TestCaseAttribute("me.sam@gmail.com", null)]
-        [NUnit.Framework.TestCaseAttribute("meysam+test@gmail.com", null)]
-        [NUnit.Framework.TestCaseAttribute("Meysam@gmail.com", null)]
-        [NUnit.Framework.TestCaseAttribute("meysam@Gmail.com", null)]
-        [NUnit.Framework.TestCaseAttribute("meysam@googlemail.com", null)]
-        public virtual void GivenACustomerRepositoryWithTheFollowingCustomers(string email, string[] exampleTags)
+        [NUnit.Framework.DescriptionAttribute("Add customer")]
+        [NUnit.Framework.CategoryAttribute("mytag")]
+        [NUnit.Framework.TestCaseAttribute("Meysam", "Amiri", "1991-02-06", "09182906145", "Meysam@gmail.com", "6104337572897112", null)]
+        [NUnit.Framework.TestCaseAttribute("Ali", "Ahmadi", "1991-03-06", "09182906144", "Ali@hahoo.com", "6104337572897114", null)]
+        [NUnit.Framework.TestCaseAttribute("Hadi", "Rastgar", "1991-04-09", "09182906143", "Hadi@gmail.com", "6104337572897115", null)]
+        [NUnit.Framework.TestCaseAttribute("Hero", "Niyazi", "1990-01-02", "09182906142", "Hero@yahoo.com", "6104337572897116", null)]
+        [NUnit.Framework.TestCaseAttribute("Neda", "Moradi", "1993-03-03", "09182906141", "Neda@hotmail.com", "6104337572897117", null)]
+        [NUnit.Framework.TestCaseAttribute("Iman", "Afzali", "1995-07-08", "09182906140", "Iman@gmail.com", "6104337572897118", null)]
+        public virtual void AddCustomer(string firstName, string lastName, string dateOfBirth, string phoneNumber, string email, string bankAccountNumber, string[] exampleTags)
         {
             string[] @__tags = new string[] {
-                    "tag1"};
+                    "mytag"};
             if ((exampleTags != null))
             {
                 @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
             }
             string[] tagsOfScenario = @__tags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            argumentsOfScenario.Add("email", email);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Given a customer repository with the following customers:", "| first name   | last name   | DateOfBirth   |  PhoneNumber         |    email   " +
-                    "     | bank account     |\r\n| meysam       | mozaffari   |  1991-02-02   |   0098" +
-                    "9182906145     |  meysam@gmail   | 6104337572897112 |", tagsOfScenario, argumentsOfScenario, this._featureTags);
+            argumentsOfScenario.Add("FirstName", firstName);
+            argumentsOfScenario.Add("LastName", lastName);
+            argumentsOfScenario.Add("DateOfBirth", dateOfBirth);
+            argumentsOfScenario.Add("PhoneNumber", phoneNumber);
+            argumentsOfScenario.Add("Email", email);
+            argumentsOfScenario.Add("BankAccountNumber", bankAccountNumber);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add customer", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 6
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -115,11 +119,14 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 9
-testRunner.When("the Steve James tries to register with email meysam@gmail.com and", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 7
+ testRunner.Given(string.Format("I create a new customer ({0},{1},{2},{3},{4},{5})", firstName, lastName, dateOfBirth, phoneNumber, email, bankAccountNumber), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 10
-testRunner.Then("the registration should fail with \"Email already registered\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 8
+    testRunner.And("ModelState is correct", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 9
+ testRunner.Then("the system should return <true>", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();

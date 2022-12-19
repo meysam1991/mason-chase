@@ -6,14 +6,20 @@ namespace Mc2.CrudTest.BDDTests.StepDefinitions
     [Binding]
     public class AddCustomerStepDefinitions
     {
-        [When(@"the Steve James tries to register with email meysam@gmail\.com and")]
-        public void WhenTheSteveJamesTriesToRegisterWithEmailMeysamGmail_ComAnd()
+        [Given(@"I create a new customer \(Meysam,Amiri,(.*)(.*),Meysam@gmail\.com,(.*)\)")]
+        public void GivenICreateANewCustomerMeysamAmiriMeysamGmail_Com(Decimal p0, Decimal p1, int p2)
         {
             throw new PendingStepException();
         }
 
-        [Then(@"the registration should fail with ""([^""]*)""")]
-        public void ThenTheRegistrationShouldFailWith(string p0)
+        [Given(@"ModelState is correct")]
+        public void GivenModelStateIsCorrect()
+        {
+            throw new PendingStepException();
+        }
+
+        [Then(@"the system should return <true>")]
+        public void ThenTheSystemShouldReturnTrue()
         {
             throw new PendingStepException();
         }
